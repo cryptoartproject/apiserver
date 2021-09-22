@@ -46,6 +46,11 @@ axios(configDB(data))
 
 const appRouter = (app, next) => {
 
+    app.get('/',(req,res)=>{
+        res.json({
+            answer:'welcome api'
+        })
+    })
 
     app.post('/test',(req,res)=>{
         console.log(req.body)
