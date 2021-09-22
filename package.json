@@ -1,10 +1,10 @@
 {
-  "name": "apiserver",
+  "name": "node-js-sample",
   "version": "0.1.0",
-  "description": "Api server express 4",
-  "main": "server.js",
+  "description": "A sample Node.js app using Express 4",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node index.js",
     "test": "mocha --reporter tap"
   },
   "dependencies": {
