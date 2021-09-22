@@ -37,15 +37,15 @@ app.use((req, res, next) => {
 });
 
 //app.use('/files', express.static('/public'));
-app.use('/files', express.static(__dirname + '/public'));
+/* app.use('/files', express.static(__dirname + '/public'));
 app.use('/logos', express.static(__dirname + '/images_logos'));
 app.use('/lands_logos', express.static(__dirname + '/uploads'));
 app.use('/qr', express.static(__dirname + '/QR'));
-app.use('/docs', express.static(__dirname + '/DOCS'));
+app.use('/docs', express.static(__dirname + '/DOCS')); */
 
 routes(app);
 
-const server = app.listen(3001, function () {
+const server = app.listen(5000,  () => {
     console.log("app running on port. All OK", server.address().port);
 });
 
