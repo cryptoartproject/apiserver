@@ -1,5 +1,6 @@
 const axios = require('axios')
 const creds = require('./creds.js')
+const moment = require('moment')
 
 const ensureToken = (req, res, next) => {
     const bearerHeader = req.headers["authorization"];
@@ -56,6 +57,7 @@ const appRouter = (app, next) => {
         console.log(req.body)
         res.json({
             req:req.body,
+            time: moment().format('HH:mm:ss DD/MM/YYYY'),
             answer:'ok'
         })
     })
