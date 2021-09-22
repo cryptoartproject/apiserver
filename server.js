@@ -1,27 +1,12 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const routes = require("./conf/endpoints.js");
+const express = require('express');
 const app = express();
-
-/*
-AFTER RESTORING
-*/
-
-/*
-const msisdn = require('express-msisdn');
-app.use(msisdn());
-*/
-
-
-
-
-
+const bodyParser = require("body-parser");
+const port = process.env.PORT || 5000
+const routes = require("./conf/endpoints.js");
 
 const cors = require('cors')
 
 app.use(cors())
-
-
 
 app.disable('x-powered-by');
 app.use(bodyParser.json());
@@ -36,17 +21,10 @@ app.use((req, res, next) => {
     next();
 });
 
-
-app.use('/files', express.static(__dirname + '/public'));
-app.use('/logos', express.static(__dirname + '/images_logos'));
-app.use('/lands_logos', express.static(__dirname + '/uploads'));
-app.use('/qr', express.static(__dirname + '/QR'));
-app.use('/docs', express.static(__dirname + '/DOCS'));
-
 routes(app);
 
-const server = app.listen(5000,  () => {
-    console.log("app running on port. All OK", server.address().port);
+app.listen(port,  () => {
+  console.log("app running on port. All OK", port);
 });
 
-//serverio.listen(3000);
+module.exports = app
