@@ -1,5 +1,5 @@
 const axios = require('axios')
-const creds = require('./conf/creds')
+const creds = require('./creds')
 
 const ensureToken = (req, res, next) => {
     const bearerHeader = req.headers["authorization"];

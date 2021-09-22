@@ -1,13 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const routes = require("./endpoints.js");
+const routes = require("./conf/endpoints.js");
 const app = express();
 
+/*
+AFTER RESTORING
+*/
+
+/*
+const msisdn = require('express-msisdn');
+app.use(msisdn());
+*/
 
 
 
 
-/* 
 
 
 const cors = require('cors')
@@ -35,8 +42,8 @@ app.use('/logos', express.static(__dirname + '/images_logos'));
 app.use('/lands_logos', express.static(__dirname + '/uploads'));
 app.use('/qr', express.static(__dirname + '/QR'));
 app.use('/docs', express.static(__dirname + '/DOCS'));
-*/
-routes(app); 
+
+routes(app);
 
 const server = app.listen(5000,  () => {
     console.log("app running on port. All OK", server.address().port);
