@@ -30,6 +30,7 @@ async function bal() {
     console.log((balance/(10**18)).toFixed(8), transactions, chain)
 } 
 
+
 //bal()
 
 
