@@ -175,17 +175,29 @@ const appRouter = (app, next) => {
         }))
 
         const isExist = (checkUser.length > 0) ? true : false
-        const token = (checkUser.length > 0) ? jwt.sign({id: checkUser[0].id}, protected) : false
+        const token = (isExist) ? jwt.sign({id: checkUser[0].id}, protected) : false
 
        
-        
+        const isUser = (isExist) ? checkUser[0].id : false
+        const ownRef = (isExist) ? checkUser[0].refCode : false
 
+        let myRefsCounter = 0
+        
+        if(ownRef){
+            console.log('WE HAVE OWNREF')
+            const refferals = await workWithBase(queryDB({
+                operation: 'sql',
+                conditions: `SELECT * FROM dev.users WHERE fromRef = '${ownRef}'`
+            }))
+            myRefsCounter = refferals.length
+        }
 
         console.log(isExist,'CHECK USER')
         res.json({
            data:req.body,
-           user:checkUser[0].id,
+           user:isUser,
            isExist,
+           myRefsCounter,
            token
         })
     })
@@ -195,7 +207,8 @@ const appRouter = (app, next) => {
 
         const login = req.body.login
         const pass = req.body.pass
-        console.log(login, pass)
+        const fromRef = req.body.fromRef
+        console.log(login, pass, fromRef)
         
         const checkUser = await workWithBase(queryDB({
             operation: 'sql',
@@ -205,10 +218,16 @@ const appRouter = (app, next) => {
         const isExist = (checkUser.length > 0) ? true : false
         
         if(!isExist){
+
+            const refCode = randomstring.generate({
+                length: 12,
+                charset: 'numeric'
+              });
+
             const regUser = await workWithBase(queryDB({
                 operation: 'insert',
                 table: 'users',
-                data:[{email:login, pass:pass, date:moment().format('DD.MM.YYYY HH:mm:ss')}],
+                data:[{email:login, pass:pass, refCode:refCode, fromRef:fromRef, date:moment().format('DD.MM.YYYY HH:mm:ss')}],
             }))
             res.json({
                 data: regUser,
